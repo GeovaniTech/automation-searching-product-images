@@ -1,28 +1,19 @@
-import time
-
-import numpy as np
 import pandas as pd
-import pyautogui
-import matplotlib.pyplot as plt
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
 from openpyxl import *
 from PIL import Image
 from openpyxl.drawing.image import Image as ImgOpen
-from skimage.transform import resize
-
 
 sheet = pd.read_excel('Produtos.xlsx')
 datas = sheet[['Marca', 'Produto', 'Cor']]
 
-pyautogui.PAUSE = 1
-
 row = 1
 ant_row = 0
+
 for value in datas.values:
-    search = value[0] + ' ' + value[1] + ' ' + value[2]
+    search = str(value[0]) + ' ' + str(value[1]) + ' ' + str(value[2])
 
     driver = webdriver.Chrome(r'C:\Users\Geovani Debastiani\.wdm\drivers\chromedriver\win32\95.0.4638.69\chromedriver.exe')
     driver.get('https://www.google.com.br/imghp?hl=pt-BR&tab=ri&ogbl')
@@ -46,10 +37,6 @@ for value in datas.values:
     sheet = wb['Produtos']
 
     loc_img = r'C:\Users\Geovani Debastiani\Desktop\Development\Projects\Automação - Busca por imagens\Images\{}.png'.format(search)
-
-    #im = plt.imread(loc_img)
-    #res = resize(im, (300, 300))
-
 
     img = Image.open(loc_img)
 
